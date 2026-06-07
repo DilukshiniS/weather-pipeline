@@ -1,0 +1,44 @@
+version: 2
+
+sources:
+  - name: raw
+    database: WEATHER_DB
+    schema: RAW
+    tables:
+      - name: weather_raw
+        description: "Raw weather data loaded daily by Airflow from Open-Meteo API"
+        columns:
+          - name: LOAD_DATE
+            description: "Date when Airflow loaded this batch"
+          - name: CITY_NAME
+            description: "Name of the city"
+          - name: COUNTRY
+            description: "Country of the city"
+          - name: WEATHER_DATE
+            description: "Actual date of the weather forecast"
+          - name: TEMP_MAX
+            description: "Maximum temperature in Celsius"
+          - name: TEMP_MIN
+            description: "Minimum temperature in Celsius"
+          - name: PRECIPITATION
+            description: "Total precipitation in millimetres"
+
+models:
+  - name: stg_weather
+    description: "Cleaned and standardised weather data from the RAW layer"
+    columns:
+      - name: CITY_NAME
+        tests:
+          - not_null
+      - name: WEATHER_DATE
+        tests:
+          - not_null
+      - name: TEMP_MAX_C
+        tests:
+          - not_null
+      - name: TEMP_MIN_C
+        tests:
+          - not_null
+      - name: PRECIPITATION_MM
+        tests:
+          - not_null

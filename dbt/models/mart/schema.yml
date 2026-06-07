@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: mart_weather
+    description: "Final analytics table with calculated weather metrics for all cities"
+    columns:
+      - name: WEATHER_DATE
+        description: "The forecast date"
+        tests:
+          - not_null
+      - name: CITY_NAME
+        description: "The city name"
+        tests:
+          - not_null
+      - name: TEMP_AVG_C
+        description: "Average temperature (max + min / 2)"
+        tests:
+          - not_null
+      - name: DID_RAIN
+        description: "1 if it rained, 0 if not"
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+      - name: TEMP_CATEGORY
+        description: "Temperature label: Very Hot / Hot / Warm / Comfortable / Cool / Cold"
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['Very Hot', 'Hot', 'Warm', 'Comfortable', 'Cool', 'Cold']

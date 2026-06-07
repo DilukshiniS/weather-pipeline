@@ -1,0 +1,8 @@
+apache-airflow==2.8.1
+apache-airflow-providers-snowflake==5.1.0
+snowflake-connector-python==3.6.0
+requests==2.31.0
+python-dotenv==1.0.0
+dbt-core==1.7.0
+dbt-snowflake==1.7.0
+astronomer-cosmos==1.3.0
