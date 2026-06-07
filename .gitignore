@@ -1,0 +1,26 @@
+# Credentials — NEVER upload
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Airflow
+logs/
+airflow.db
+airflow.cfg
+webserver_config.py
+standalone_admin_password.txt
+
+# dbt
+dbt/target/
+dbt/dbt_packages/
+dbt/.user.yml
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+desktop.ini
