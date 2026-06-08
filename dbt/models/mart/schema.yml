@@ -2,28 +2,56 @@ version: 2
 
 models:
   - name: mart_weather
-    description: "Final analytics table with calculated weather metrics for all cities"
+    description: "Weekly aggregated weather summary per city"
     columns:
-      - name: WEATHER_DATE
-        description: "The forecast date"
-        tests:
-          - not_null
       - name: CITY_NAME
-        description: "The city name"
+        description: "City name"
         tests:
           - not_null
-      - name: TEMP_AVG_C
-        description: "Average temperature (max + min / 2)"
+          - unique
+
+      - name: COUNTRY
+        description: "Country name"
         tests:
           - not_null
-      - name: DID_RAIN
-        description: "1 if it rained, 0 if not"
+
+      - name: LOAD_DATE
+        description: "Date the data was loaded"
         tests:
           - not_null
-          - accepted_values:
-              values: [0, 1]
-      - name: TEMP_CATEGORY
-        description: "Temperature label: Very Hot / Hot / Warm / Comfortable / Cool / Cold"
+
+      - name: AVG_TEMP_C
+        description: "Average temperature for the week"
+        tests:
+          - not_null
+
+      - name: WEEK_HIGH_C
+        description: "Highest temperature of the week"
+        tests:
+          - not_null
+
+      - name: WEEK_LOW_C
+        description: "Lowest temperature of the week"
+        tests:
+          - not_null
+
+      - name: TOTAL_PRECIPITATION_MM
+        description: "Total rainfall for the week in mm"
+        tests:
+          - not_null
+
+      - name: RAINY_DAYS
+        description: "Number of rainy days in the forecast"
+        tests:
+          - not_null
+
+      - name: DAYS_FORECASTED
+        description: "Number of days in the forecast"
+        tests:
+          - not_null
+
+      - name: WEEK_TEMP_CATEGORY
+        description: "Temperature category for the week"
         tests:
           - not_null
           - accepted_values:
