@@ -36,7 +36,9 @@ services:
       bash -c "
         pip install -r /requirements.txt --quiet &&
         airflow db migrate &&
-        airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com || true
+        airflow users create --username admin --password admin --firstname Admin --lastname User --role Admin --email admin@example.com || true &&
+        airflow connections delete snowflake_default || true &&
+        airflow connections add snowflake_default --conn-type snowflake --conn-login ${SNOWFLAKE_USER} --conn-password ${SNOWFLAKE_PASSWORD} --conn-schema RAW --conn-extra '{\"account\": \"XILIAKM-JT39097\", \"warehouse\": \"WEATHER_WH\", \"database\": \"WEATHER_DB\", \"role\": \"ACCOUNTADMIN\"}'
       "
 
   airflow-webserver:

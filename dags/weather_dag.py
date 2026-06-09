@@ -64,9 +64,9 @@ default_args = {
     'depends_on_past': False,
     'retries': 1,
     'retry_delay': timedelta(minutes=5),
-    'email_on_failure': False,       # We handle alerting manually via on_failure_callback
+    'email_on_failure': False,
     'email_on_retry': False,
-    'on_failure_callback': alert_on_failure,  # Called automatically on any task failure
+    'on_failure_callback': alert_on_failure,
 }
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -174,23 +174,19 @@ def load_to_snowflake(**context):
 
 # ─────────────────────────────────────────────────────────────────────────────
 # COSMOS CONFIGURATION
-# This tells Cosmos where to find your dbt project and how to connect to Snowflake.
-# Cosmos turns each dbt model into a real Airflow task.
 # ─────────────────────────────────────────────────────────────────────────────
 DBT_PROJECT_PATH = "/opt/airflow/dbt"
 
 profile_config = ProfileConfig(
     profile_name="weather_project",
     target_name="dev",
-    # SnowflakeUserPasswordProfileMapping reads your Snowflake credentials
-    # from environment variables automatically
     profile_mapping=SnowflakeUserPasswordProfileMapping(
-        conn_id="snowflake_default",   # Airflow connection ID (set up below)
+        conn_id="snowflake_default",
         profile_args={
             "database": "WEATHER_DB",
             "warehouse": "WEATHER_WH",
             "schema": "RAW",
-            "role": "SYSADMIN",
+            "role": "ACCOUNTADMIN",
         },
     ),
 )
@@ -211,7 +207,7 @@ with DAG(
     default_args=default_args,
     description='Multi-city weather ELT: Open-Meteo → Snowflake → dbt (via Cosmos)',
     schedule_interval='@daily',
-    start_date=datetime(2024, 1, 1),
+    start_date=datetime(2026, 6, 1),
     catchup=False,
     tags=['weather', 'snowflake', 'dbt', 'cosmos'],
 ) as dag:
@@ -228,9 +224,6 @@ with DAG(
         provide_context=True,
     )
 
-    # DbtTaskGroup replaces the old BashOperator
-    # Cosmos reads your dbt project and creates one Airflow task per dbt model
-    # In the Airflow UI you will see individual tasks for stg_weather and mart_weather
     dbt_transform = DbtTaskGroup(
         group_id="dbt_transformations",
         project_config=project_config,
@@ -239,5 +232,4 @@ with DAG(
         default_args=default_args,
     )
 
-    # Task order: fetch → load → dbt (via Cosmos)
     task_fetch >> task_load >> dbt_transform
