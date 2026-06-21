@@ -186,7 +186,7 @@ profile_config = ProfileConfig(
             "database": "WEATHER_DB",
             "warehouse": "WEATHER_WH",
             "schema": "RAW",
-            "role": "ACCOUNTADMIN",
+            "role": "pipeline_role",
         },
     ),
 )

@@ -13,7 +13,10 @@ WITH staging AS (
 filtered AS (
     SELECT * FROM staging
     {% if is_incremental() %}
-        WHERE LOAD_DATE > (SELECT MAX(LOAD_DATE) FROM {{ this }})
+        WHERE LOAD_DATE > COALESCE(
+            (SELECT MAX(LOAD_DATE) FROM {{ this }}),
+            '2000-01-01'
+        )
     {% endif %}
 ),
 
