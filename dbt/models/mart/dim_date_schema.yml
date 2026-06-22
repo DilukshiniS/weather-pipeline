@@ -19,4 +19,4 @@ models:
       - name: day_name
         description: "Day of week name"
         tests:
-          - not_nulls
+          - not_null
