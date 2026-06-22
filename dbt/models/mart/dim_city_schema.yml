@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: dim_city
+    description: "City dimension - one row per city"
+    columns:
+      - name: CITY_NAME
+        description: "City name"
+        tests:
+          - not_null
+          - unique
+      - name: COUNTRY
+        description: "Country name"
+        tests:
+          - not_null
+      - name: LATITUDE
+        description: "Latitude coordinate"
+        tests:
+          - not_null
+      - name: LONGITUDE
+        description: "Longitude coordinate"
+        tests:
+          - not_null

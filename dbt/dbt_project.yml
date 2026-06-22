@@ -13,8 +13,8 @@ clean-targets:
 models:
   weather_project:
     staging:
-      +schema: staging
       +materialized: view
+      +schema: STAGING
     mart:
-      +schema: mart
       +materialized: table
+      +schema: MART

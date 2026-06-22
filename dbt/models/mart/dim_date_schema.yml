@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: "Date dimension - one row per date"
+    columns:
+      - name: date_day
+        description: "The date"
+        tests:
+          - not_null
+      - name: year
+        description: "Year"
+        tests:
+          - not_null
+      - name: month
+        description: "Month number"
+        tests:
+          - not_null
+      - name: day_name
+        description: "Day of week name"
+        tests:
+          - not_nulls

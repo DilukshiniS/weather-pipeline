@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: fct_weather_daily
+    description: "Daily weather fact table - one row per city per forecast date"
+    columns:
+      - name: CITY_NAME
+        description: "City name"
+        tests:
+          - not_null
+      - name: WEATHER_DATE
+        description: "Forecast date"
+        tests:
+          - not_null
+      - name: LOAD_DATE
+        description: "Date data was loaded"
+        tests:
+          - not_null
+      - name: TEMP_MAX_C
+        description: "Maximum temperature in Celsius"
+        tests:
+          - not_null
+      - name: TEMP_MIN_C
+        description: "Minimum temperature in Celsius"
+        tests:
+          - not_null
+      - name: PRECIPITATION_MM
+        description: "Precipitation in millimetres"
+        tests:
+          - not_null
