@@ -1,11 +1,10 @@
 name: 'weather_project'
 version: '1.0.0'
 config-version: 2
-
 profile: 'weather_project'
 model-paths: ["models"]
+snapshot-paths: ["snapshots"]
 target-path: "target"
-
 clean-targets:
   - "target"
   - "dbt_packages"
@@ -18,3 +17,7 @@ models:
     mart:
       +materialized: table
       +schema: MART
+
+snapshots:
+  weather_project:
+    +target_schema: MART
