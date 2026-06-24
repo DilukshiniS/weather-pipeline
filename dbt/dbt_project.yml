@@ -5,6 +5,7 @@ profile: 'weather_project'
 model-paths: ["models"]
 snapshot-paths: ["snapshots"]
 target-path: "target"
+test-paths: ["tests"]
 clean-targets:
   - "target"
   - "dbt_packages"
