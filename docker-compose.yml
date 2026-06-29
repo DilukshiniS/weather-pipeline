@@ -88,6 +88,8 @@ services:
   airflow-scheduler:
     image: apache/airflow:2.8.1-python3.11
     restart: always
+    ports:
+    - "8001:8001" 
     depends_on:
       postgres:
         condition: service_healthy
