@@ -8,11 +8,17 @@ models:
         description: "City name"
         tests:
           - not_null
+          - relationships:              
+              to: ref('dim_city')       
+              field: CITY_NAME         
 
       - name: WEATHER_DATE
         description: "Forecast date"
         tests:
           - not_null
+          - relationships:            
+              to: ref('dim_date')       
+              field: date_day           
 
       - name: LOAD_DATE
         description: "Date data was loaded"
